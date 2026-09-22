@@ -12,7 +12,13 @@ public class Practice {
      * @return the sum of the odd numbers in the array
      */
     public static int oddSum(int[] nums) {
-        return 0;
+        int sum = 0;
+        for (int i : nums) {
+            if(i%2 != 0){
+                sum += i; 
+            }
+        }
+        return sum;
     }
 
     /**
