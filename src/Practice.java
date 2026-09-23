@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Practice {
     /**
@@ -142,8 +143,34 @@ public class Practice {
      * @return the number of levels in the tree
      */
     public static int levelCount(BinaryTreeNode<?> root) {
-        return 0;
+
+        if(root == null){
+            return 0;
+        }
+
+        int leftMax = levelCount(root.left);
+        int rightMax = levelCount(root.right);
+        
+
+        return 1 + Math.max(leftMax, rightMax);
     }
+        /*
+         *        8
+         *      /   \
+         *     3     10
+         *    / \      \
+         *   1   6      14
+         */
+
+        /*
+         *   1
+         *    \
+         *     2
+         *      \
+         *       3
+         *      /
+         *     4
+         */
 
 
     /**
@@ -170,7 +197,34 @@ public class Practice {
      * @return the sum of the nodes at the given level
      */
     public static int sumAtLevel(BinaryTreeNode<Integer> root, int level) {
-        return 0;
+        if(root == null){
+            return 0;
+        }
+        
+        if(level != 1 ){
+            root.data = 0;
+        }
+
+        int sumL = sumAtLevel( root.left, level - 1);
+        int sumR = sumAtLevel( root.right, level - 1);
+
+        return root.data + sumL + sumR;
+
+        /*
+            if (root == null || level <= 0) {
+                return 0;
+            }
+
+            if (level == 1) {
+                return root.data;
+            }
+
+            int sumL = sumAtLevel(root.left, level - 1);
+            int sumR = sumAtLevel(root.right, level - 1);
+
+            return sumL + sumR;
+        */
+        
     }
 
 
@@ -185,6 +239,30 @@ public class Practice {
      * @return true if the sums are equal, false otherwise
      */
     public static boolean sumMatch(BinaryTreeNode<Integer> root, ListNode<Integer> head) {
-        return false;
+        int treeSum = 0;
+        int listSum = 0;
+
+        Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
+        BinaryTreeNode<Integer> current = root;
+
+        //Stack traversal of BST - very cool
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            current = stack.pop();
+            treeSum += current.data;
+
+            current = current.right;
+        }
+
+        //Linked-List traversal 
+        while(head != null){
+            listSum += head.data;
+            head = head.next;
+        }
+
+        return treeSum == listSum;
     }
 }
