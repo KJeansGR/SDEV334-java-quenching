@@ -1,3 +1,5 @@
+import java.security.KeyStore.Entry;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,7 +68,13 @@ public class Practice {
      * @throws NullPointerException if ages is null
      */
     public static Set<String> adults(Map<String, Integer> ages) {
-        return null;
+        Set<String> answer = new HashSet<>();
+        for (Map.Entry<String, Integer>  entries: ages.entrySet()) {
+            if (entries.getValue() >= 18){
+                answer.add((entries.getKey()));
+            }
+        }
+        return answer;
     }
 
     /**
@@ -77,7 +85,15 @@ public class Practice {
      * @throws IllegalArgumentException if head is null
      */
     public static int biggestNumber(ListNode<Integer> head) {
-        return 0;
+        int curMax = Integer.MIN_VALUE;
+        if(head == null){
+            throw new IllegalArgumentException();
+        }
+        while(head != null){
+            curMax = Math.max(curMax, head.data);
+            head = head.next;
+        }
+        return curMax;
     }
 
     /**
