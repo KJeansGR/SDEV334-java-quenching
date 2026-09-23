@@ -1,6 +1,5 @@
-import java.security.KeyStore.Entry;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,9 +14,15 @@ public class Practice {
      */
     public static int oddSum(int[] nums) {
         int sum = 0;
-        for (int i : nums) {
-            if(i%2 != 0){
-                sum += i; 
+        if(nums == null){
+            return sum;
+        }
+        else
+        {           
+            for (int i : nums) {
+                if(i%2 != 0){
+                    sum += i; 
+                }
             }
         }
         return sum;
@@ -110,7 +115,21 @@ public class Practice {
      * @return a frequency map of values in the list
      */
     public static <T> Map<T, Integer> frequencies(ListNode<T> head) {
-        return null;
+
+        Map<T, Integer> map = new HashMap<>();
+
+        while(head != null){
+
+            if(map.keySet().contains(head.data)){
+                int x = map.get(head.data) + 1;
+                map.put(head.data, x);
+            }
+            else{
+                map.put(head.data, 1);
+            }
+            head = head.next;
+        }
+        return map;
     }
 
 
